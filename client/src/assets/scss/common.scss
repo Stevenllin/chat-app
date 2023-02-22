@@ -2,16 +2,19 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-// #25baa0
-// #e4f4f0
-// #3387a1
+// #257aba
+// #258aba
+$color-main: #2597ba;
 $color-red: #eb4f72;
+$color-white: #FFFFFF;
+$font-md: 20px;
 
 /** HTML tag */
 html, body {
   margin: 0px;
   height: 100vh;
   overflow: hidden;
+  background-color: #1f192d;
 }
 button {
   all: unset;
@@ -29,5 +32,13 @@ button {
 
 .color-danger {
   color: $color-red;
+}
+
+.button-main {
+  padding: 1rem 2rem;
+  font-size: $font-md;
+  color: $color-white;
+  background-color: $color-main;
+  border-radius: 0.5rem;
 }
 /** Common */

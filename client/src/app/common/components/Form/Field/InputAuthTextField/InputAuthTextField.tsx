@@ -5,7 +5,7 @@ import { InputAuthTextFieldContainer } from 'assets/styledComponents/Form';
 import { ErrorMessage } from '@hookform/error-message';
 import { InputAuthTextFieldProps } from './types';
 
-const InputAuthTextField = React.forwardRef<HTMLInputElement, InputAuthTextFieldProps>(({ label, placeholder, asterisk, errors, ...props }, ref) => (
+const InputAuthTextField = React.forwardRef<HTMLInputElement, InputAuthTextFieldProps>(({ label, type, placeholder, asterisk, errors, ...props }, ref) => (
   <InputAuthTextFieldContainer>
     {
       label && (
@@ -14,10 +14,10 @@ const InputAuthTextField = React.forwardRef<HTMLInputElement, InputAuthTextField
     }
     {
       asterisk && (
-        <span className="color-danger">＊</span>
+        <span className="color-danger ms-2">＊</span>
       )
     }
-    <InputAuth placeholder={placeholder} {...props} ref={ref} />
+    <InputAuth type={type} placeholder={placeholder} {...props} ref={ref} />
     {
       errors && (
         <ErrorMessage

@@ -9,9 +9,10 @@ import { FormValues } from './types';
 const Login: React.FC = () => {
   const reactHookForm = useForm<FormValues>({
     defaultValues: {
-      account: '',
+      username: '',
       password: ''
     },
+    // @ts-ignore
     resolver: yupResolver(PageValidationSchema)
   })
   const handleFormSubmit = reactHookForm.handleSubmit((formValues) => {
@@ -21,27 +22,29 @@ const Login: React.FC = () => {
     <AuthContainer>
       <AuthCard>
         <form className="w-80" onSubmit={handleFormSubmit}>
-          <h1>Login</h1>
-          <div>
+          <h1 className="my-4">Login</h1>
+          <div className="my-4">
             <InputAuthTextField
-              label="Account"
+              label="Username"
+              type="text"
               asterisk
               placeholder="Please enter your account"
-              {...reactHookForm.register('account')}
+              {...reactHookForm.register('username')}
               errors={reactHookForm.formState.errors}
             />
           </div>
-          <div>
+          <div className="my-4">
             <InputAuthTextField
               label="Password"
+              type="password"
               asterisk
               placeholder="Please enter your password"
               {...reactHookForm.register('password')}
               errors={reactHookForm.formState.errors}
             />
           </div>
-          <div className="d-flex justify-content-center">
-            <button type="submit">Login</button>
+          <div className="d-flex justify-content-center my-4">
+            <button className="button-main" type="submit">Confirm</button>
           </div>
         </form>
       </AuthCard>
