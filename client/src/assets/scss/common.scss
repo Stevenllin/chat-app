@@ -5,6 +5,7 @@
 // #25baa0
 // #e4f4f0
 // #3387a1
+$color-red: #eb4f72;
 
 /** HTML tag */
 html, body {
@@ -24,5 +25,9 @@ button {
 
 .w-50 {
   width: 50%;
+}
+
+.color-danger {
+  color: $color-red;
 }
 /** Common */
