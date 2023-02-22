@@ -6,12 +6,12 @@ export enum ROUTES {
   FEATURES = '',
 
   /** Chatroom (module) */
-  Chatroom = '/chatroom',
+  FEATURES_CHATROOM = '/chatroom',
   
   /** Auth */
   AUTH = '/auth',
   /** Login */
-  LOGIN = '/login',
+  AUTH_LOGIN = '/auth/login',
   /** Register */
-  REGISTER = '/register'
+  AUTH_REGISTER = '/auth/register'
 }

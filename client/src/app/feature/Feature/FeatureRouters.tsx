@@ -9,10 +9,10 @@ const FeaturesRoutes: React.FC = () => {
       <Switch>
         <Route
           exact
-          path={ROUTES.Chatroom}
+          path={ROUTES.FEATURES_CHATROOM}
           component={React.lazy(() => import('./Chatroom'))}
         />
-        <Redirect to={ROUTES.Chatroom} />
+        {/* <Redirect to={ROUTES.FEATURES_CHATROOM} /> */}
       </Switch>
     </React.Suspense>
   )

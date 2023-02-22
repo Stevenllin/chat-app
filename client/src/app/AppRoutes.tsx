@@ -10,12 +10,12 @@ const AppRoutes: React.FC = () => (
       <RouterScrollToTop />
       <Switch>
         <Route
-          path={ROUTES.FEATURES}
-          component={React.lazy(() => import('./feature/Feature'))}
-        />
-        <Route
           path={ROUTES.AUTH}
           component={React.lazy(() => import('./feature/Auth'))}
+        />
+        <Route
+          path={ROUTES.FEATURES}
+          component={React.lazy(() => import('./feature/Feature'))}
         />
       </Switch>
     </BrowserRouter>

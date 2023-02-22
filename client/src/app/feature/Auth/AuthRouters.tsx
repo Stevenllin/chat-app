@@ -9,15 +9,15 @@ const AuthRouters: React.FC = () => {
       <Switch>
         <Route
           exact
-          path={ROUTES.REGISTER}
+          path={ROUTES.AUTH_REGISTER}
           component={React.lazy(() => import('./Register'))}
         />
         <Route
           exact
-          path={ROUTES.LOGIN}
+          path={ROUTES.AUTH_LOGIN}
           component={React.lazy(() => import('./Login'))}
         />
-        <Redirect to={ROUTES.REGISTER} />
+        <Redirect to={ROUTES.AUTH_REGISTER} />
       </Switch>
     </React.Suspense>
   )

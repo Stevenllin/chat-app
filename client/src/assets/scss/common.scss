@@ -2,8 +2,27 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-body {
-  max-height: 100vh;
-  max-width: 100vh;
+// #25baa0
+// #e4f4f0
+// #3387a1
+
+/** HTML tag */
+html, body {
+  margin: 0px;
+  height: 100vh;
   overflow: hidden;
 }
+button {
+  all: unset;
+}
+/** HTML tag */
+
+/** Common */
+.w-80 {
+  width: 80%;
+}
+
+.w-50 {
+  width: 50%;
+}
+/** Common */
