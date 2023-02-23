@@ -1,5 +1,6 @@
 import React from 'react';
-import apiService from 'app/api/service/apiService';
+import { useDispatch } from 'react-redux';
+import { executeRegisterAction } from 'app/store/feature/Auth/action';
 import { useForm } from 'react-hook-form';
 import { AuthContainer, AuthCard } from 'assets/styledComponents/Auth';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +9,8 @@ import InputAuthTextField from 'app/common/components/Form/Field/InputAuthTextFi
 import { FormValues } from './types';
 
 const Register: React.FC = () => {
+  const reduxDispatch = useDispatch();
+
   const reactHookForm = useForm<FormValues>({
     defaultValues: {
       username: '',
@@ -19,13 +22,7 @@ const Register: React.FC = () => {
     resolver: yupResolver(PageValidationSchema)
   });
   const handleFormSubmit = reactHookForm.handleSubmit(async (formValues) => {
-    const response = await apiService.postAuthRegister(formValues)
-    if (!response.status) {
-      console.log('status', response.status);
-    } else {
-      console.log('success')
-    }
-    console.log(formValues);
+    reduxDispatch(executeRegisterAction(formValues));
   });
   return (
     <AuthContainer>

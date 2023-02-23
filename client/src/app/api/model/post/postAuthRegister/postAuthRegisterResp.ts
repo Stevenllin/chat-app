@@ -1,6 +1,6 @@
 export interface PostAuthRegisterResp {
   status: boolean;
-  data: User;
+  user: User;
 }
 
 export interface User {
