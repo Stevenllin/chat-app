@@ -20,6 +20,11 @@ const Register: React.FC = () => {
   });
   const handleFormSubmit = reactHookForm.handleSubmit(async (formValues) => {
     const response = await apiService.postAuthRegister(formValues)
+    if (!response.status) {
+      console.log('status', response.status);
+    } else {
+      console.log('success')
+    }
     console.log(formValues);
   });
   return (
