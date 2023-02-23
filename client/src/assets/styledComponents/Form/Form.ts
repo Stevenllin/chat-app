@@ -21,11 +21,13 @@ const InputAuthTextFieldContainer = styled.div`
     font-family: 'Montserrat', sans-serif;
     border: 1.5px solid ${colorWhite};
     border-radius: 0.4rem;
-    background-color: transparent;
+    color: #141e60;
+    background-color: ${colorWhite};
+    opacity: 0.2;
 
     &:focus{
       outline: none;
-      border: 1.5px solid ${colorBorder};
+      border: 3px solid ${colorBorder};
     }
   }
 `

@@ -1,4 +1,5 @@
 import React from 'react';
+import apiService from 'app/api/service/apiService';
 import { useForm } from 'react-hook-form';
 import { AuthContainer, AuthCard } from 'assets/styledComponents/Auth';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,7 +18,8 @@ const Register: React.FC = () => {
     // @ts-ignore
     resolver: yupResolver(PageValidationSchema)
   });
-  const handleFormSubmit = reactHookForm.handleSubmit((formValues) => {
+  const handleFormSubmit = reactHookForm.handleSubmit(async (formValues) => {
+    const response = await apiService.postAuthRegister(formValues)
     console.log(formValues);
   });
   return (
@@ -38,7 +40,7 @@ const Register: React.FC = () => {
           <div className="my-4">
             <InputAuthTextField
               label="Email"
-              type="email"
+              type="text"
               asterisk
               placeholder="Email"
               {...reactHookForm.register('email')}

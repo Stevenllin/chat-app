@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,300&family=Noto+Nastaliq+Urdu:wght@700&display=swap');body {
   font-family: 'Montserrat', sans-serif;
 }
-
-// #257aba
-// #258aba
-$color-main: #2597ba;
+//#e7edee
+//#d5e9ea
+//#0395a4
+//#c3e1db
+//#87c4b7
+$color-main: #0395a4;
 $color-red: #eb4f72;
 $color-white: #FFFFFF;
 $font-md: 20px;
@@ -14,7 +16,7 @@ html, body {
   margin: 0px;
   height: 100vh;
   overflow: hidden;
-  background-color: #1f192d;
+  background-color: #d5e9ea;
 }
 button {
   all: unset;
@@ -34,11 +36,16 @@ button {
   color: $color-red;
 }
 
+.color-main {
+  color: $color-main;
+}
+
 .button-main {
   padding: 1rem 2rem;
   font-size: $font-md;
   color: $color-white;
   background-color: $color-main;
   border-radius: 0.5rem;
+  box-shadow: 1px 1px 1px $color-main;
 }
 /** Common */

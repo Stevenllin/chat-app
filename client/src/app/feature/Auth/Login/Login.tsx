@@ -28,7 +28,7 @@ const Login: React.FC = () => {
               label="Username"
               type="text"
               asterisk
-              placeholder="Please enter your account"
+              placeholder="Please enter your username"
               {...reactHookForm.register('username')}
               errors={reactHookForm.formState.errors}
             />
@@ -42,6 +42,9 @@ const Login: React.FC = () => {
               {...reactHookForm.register('password')}
               errors={reactHookForm.formState.errors}
             />
+          </div>
+          <div className="my-4">
+            <p className="color-main">Don't have an account? <span className="text-uppercase fw-bold">Register</span></p>
           </div>
           <div className="d-flex justify-content-center my-4">
             <button className="button-main" type="submit">Confirm</button>
