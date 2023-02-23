@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: true
   },
+  token: {
+    type: String,
+  },
   isAvatarImageSet: {
     type: Boolean,
     default: false

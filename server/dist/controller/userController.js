@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
 const userModel_1 = __importDefault(require("../model/user/userModel"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const register = (req, resp, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -25,9 +26,16 @@ const register = (req, resp, next) => __awaiter(void 0, void 0, void 0, function
         if (emailCheck)
             return resp.json({ msg: 'Email already used', status: false });
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+        const jwtKey = "my_secret_key";
+        const token = jsonwebtoken_1.default.sign({ username }, jwtKey, {
+            algorithm: "HS256",
+            expiresIn: '2h'
+        });
+        console.log('token', token);
         const user = new userModel_1.default({
             username,
             email,
+            token,
             password: hashedPassword
         });
         yield user.save();
