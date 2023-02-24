@@ -22,6 +22,7 @@ function * executeRegister (action: ExecuteRegisterAction) {
     yield put(saveUserInformationAction({
       user: request
     }))
+    
   }
 }
 

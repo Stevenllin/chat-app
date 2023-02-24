@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import RouterRoute from 'app/common/components/Router/RouterRoute';
+import { Switch, Redirect } from 'react-router-dom';
 import { ROUTES } from 'app/core/router/path';
 import LazySpinner from 'app/common/components/Spinner/LazySpinner';
 
@@ -7,12 +8,12 @@ const AuthRouters: React.FC = () => {
   return (
     <React.Suspense fallback={<LazySpinner/>}>
       <Switch>
-        <Route
+        <RouterRoute
           exact
           path={ROUTES.AUTH_REGISTER}
           component={React.lazy(() => import('./Register'))}
         />
-        <Route
+        <RouterRoute
           exact
           path={ROUTES.AUTH_LOGIN}
           component={React.lazy(() => import('./Login'))}

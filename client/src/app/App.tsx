@@ -1,16 +1,16 @@
 import React from 'react';
 import store from 'app/store';
-import { Router } from 'react-router';
 import { routerHistory } from 'app/core/router/service';
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import AppRoutes from './AppRoutes';
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <Router history={routerHistory}>
+      <ConnectedRouter history={routerHistory}>
         <AppRoutes />
-      </Router>
+      </ConnectedRouter>
     </Provider>
   );
 }
