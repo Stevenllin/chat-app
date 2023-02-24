@@ -19,7 +19,6 @@ const register = async (req: Request, resp: Response, next: NextFunction) => {
       algorithm: "HS256",
       expiresIn: '2h'
     });
-    console.log('token', token);
     const user = new User({
       username,
       email,
