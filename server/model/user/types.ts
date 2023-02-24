@@ -4,4 +4,5 @@ export interface UserState {
   password: string;
   isAvatarImageSet: boolean;
   avatarImage: string;
+  token: string;
 }

@@ -1,12 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { AuthContainer, AuthCard } from 'assets/styledComponents/Auth';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { executeLoginAction } from 'app/store/feature/Auth/action';
 import { PageValidationSchema } from './validations';
 import InputAuthTextField from 'app/common/components/Form/Field/InputAuthTextField';
 import { FormValues } from './types';
 
 const Login: React.FC = () => {
+  const reduxDispatch = useDispatch();
+
   const reactHookForm = useForm<FormValues>({
     defaultValues: {
       username: '',
@@ -16,7 +20,7 @@ const Login: React.FC = () => {
     resolver: yupResolver(PageValidationSchema)
   })
   const handleFormSubmit = reactHookForm.handleSubmit((formValues) => {
-    console.log(formValues);
+    reduxDispatch(executeLoginAction(formValues));
   });
   return (
     <AuthContainer>

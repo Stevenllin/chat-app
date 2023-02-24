@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import User from '../model/user/userModel';
+import { UserState } from '../model/user/types';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
@@ -30,7 +31,21 @@ const register = async (req: Request, resp: Response, next: NextFunction) => {
   } catch (error) {
     next(error)
   }
-  
 }
 
-export { register }
+const login = async (req: Request, resp: Response, next: NextFunction) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username })
+    if (!user) return resp.json({ msg: 'Incorrect username or password', status: false })
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) return resp.json({ msg: 'Incorrect username or password', status: false })
+
+    return resp.json({ status: true, user });
+  } catch (error) {
+    next(error)
+  }
+}
+
+export { register, login }

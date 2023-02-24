@@ -1,8 +1,14 @@
 import { PostAuthRegisterReq } from 'app/api/model/post/postAuthRegister';
-import { AuthState, AuthActions, REGISTER__USERS, SAVE__USERS } from './types';
+import { PostAuthLoginReq } from 'app/api/model/post/postAuthLogin';
+import { AuthState, AuthActions, REGISTER__USERS, LOGIN__USERS, SAVE__USERS } from './types';
 
 export const executeRegisterAction = (args: PostAuthRegisterReq): AuthActions => ({
   type: REGISTER__USERS,
+  payload: { args }
+})
+
+export const executeLoginAction = (args: PostAuthLoginReq): AuthActions => ({
+  type: LOGIN__USERS,
   payload: { args }
 })
 

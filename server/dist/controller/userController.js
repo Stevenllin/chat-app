@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.login = exports.register = void 0;
 const userModel_1 = __importDefault(require("../model/user/userModel"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -31,7 +31,6 @@ const register = (req, resp, next) => __awaiter(void 0, void 0, void 0, function
             algorithm: "HS256",
             expiresIn: '2h'
         });
-        console.log('token', token);
         const user = new userModel_1.default({
             username,
             email,
@@ -46,3 +45,19 @@ const register = (req, resp, next) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.register = register;
+const login = (req, resp, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { username, password } = req.body;
+        const user = yield userModel_1.default.findOne({ username });
+        if (!user)
+            return resp.json({ msg: 'Incorrect username or password', status: false });
+        const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
+        if (!isPasswordValid)
+            return resp.json({ msg: 'Incorrect username or password', status: false });
+        return resp.json({ status: true, user });
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.login = login;
