@@ -13,6 +13,11 @@ const FeaturesRoutes: React.FC = () => {
           path={ROUTES.FEATURES_CHATROOM}
           component={React.lazy(() => import('./Chatroom'))}
         />
+        <RouterRoute
+          exact
+          path={ROUTES.FEATURES_AVATAR}
+          component={React.lazy(() => import('./Avatar'))}
+        />
         <Redirect to={ROUTES.FEATURES_CHATROOM} />
       </Switch>
     </React.Suspense>

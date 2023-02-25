@@ -2,11 +2,13 @@
  * @description 
 */
 export enum ROUTES {
-  /** Feature (module) */
+  /** Feature */
   FEATURES = '',
 
-  /** Chatroom (module) */
+  /** Chatroom */
   FEATURES_CHATROOM = '/chatroom',
+  /** Avatar */
+  FEATURES_AVATAR = '/avatar',
   
   /** Auth */
   AUTH = '/auth',
