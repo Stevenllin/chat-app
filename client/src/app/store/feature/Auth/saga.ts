@@ -32,9 +32,12 @@ function * executeLogin (action: ExecuteLoginAction) {
     console.log('status', response.status);
   } else {
     const request = {
+      id: response.user._id,
       username: response.user.username,
       email: response.user.email,
-      token: response.user.token
+      token: response.user.token,
+      isAvatarImageSet: response.user.isAvatarImageSet,
+      avatarImage: response.user.avatarImage
     }
     storageService.setItem(StorageKeysEnum.Authorization, JSON.stringify({
       user: request

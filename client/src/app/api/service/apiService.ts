@@ -2,6 +2,7 @@ import axios from 'axios';
 import { GetAvatarReq, GetAvatarResp } from '../model/get/getAvatar';
 import { PostAuthRegisterReq, PostAuthRegisterResp } from 'app/api/model/post/postAuthRegister';
 import { PostAuthLoginReq, PostAuthLoginResp } from 'app/api/model/post/postAuthLogin';
+import { PostAuthSetAvatarReq, PostAuthSetAvatarResp } from '../model/post/postAuthSetAvatar';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -16,5 +17,9 @@ export default {
   postAuthLogin: async (args: PostAuthLoginReq) => {
     return axios.post<PostAuthLoginResp>('/api/auth/login', args)
       .then((response) => response.data)
+  },
+  postAuthSetAvatar: async (args: PostAuthSetAvatarReq, id: string) => {
+    return axios.post<PostAuthSetAvatarResp>(`/api/auth/setavatar/${id}`, args)
+      .then((response) => response.data);
   }
 }

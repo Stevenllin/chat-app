@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import storageService from 'app/core/service/storageService';
+import apiService from 'app/api/service/apiService';
+import { StorageKeysEnum } from 'app/core/enum/storage';
+import { useSelector } from "react-redux";
+import { RootState } from 'app/store/types';
 import { Buffer } from "buffer";
 import { SlRefresh } from "react-icons/sl";
 import multiavatar from '@multiavatar/multiavatar';
 import { AvatarContainer } from 'assets/styledComponents/Feature/Avatar';
 
 const Avatar: React.FC = () => {
+  const user = JSON.parse(storageService.getItem(StorageKeysEnum.Authorization)).user;
   const [avatars, setAvatars] = useState<string[]>([]);
   const [indexOfselectAvatar, setIndexOfSelectAvatar] = useState<number|null>(null);
 
@@ -29,12 +35,12 @@ const Avatar: React.FC = () => {
     fetchQueryAvatars();
   }, []);
 
-  console.log('avatars', avatars);
-
-  const handleConfirmBtn = () => {
+  const handleConfirmBtn = async () => {
     if (indexOfselectAvatar) {
-      const avatar = avatars[indexOfselectAvatar]
-      console.log('avatar', avatar);
+      const response = await apiService.postAuthSetAvatar({
+        image: avatars[indexOfselectAvatar]
+      }, user.id);
+      console.log('response', response);
     }
   }
 

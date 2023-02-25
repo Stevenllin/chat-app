@@ -10,7 +10,6 @@ import { FormValues } from './types';
 
 const Login: React.FC = () => {
   const reduxDispatch = useDispatch();
-
   const reactHookForm = useForm<FormValues>({
     defaultValues: {
       username: '',
