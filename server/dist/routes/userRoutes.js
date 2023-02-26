@@ -6,4 +6,5 @@ const userRouter = (0, express_1.Router)();
 userRouter.post('/register', userController_1.register);
 userRouter.post('/login', userController_1.login);
 userRouter.post('/setavatar/:id', userController_1.setAvatar);
+userRouter.get('/allusers/:id', userController_1.getAllUsers);
 exports.default = userRouter;

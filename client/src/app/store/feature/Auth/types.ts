@@ -3,9 +3,12 @@ import { PostAuthLoginReq } from 'app/api/model/post/postAuthLogin';
 
 export interface AuthState {
   user: {
+    id?: string;
     username: string;
     email: string;
     token: string;
+    isAvatarImageSet?: boolean;
+    avatarImage?: string;
   }
 }
 

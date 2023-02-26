@@ -12,6 +12,10 @@ $color-white: #FFFFFF;
 $font-md: 20px;
 
 /** HTML tag */
+#root {
+  height: 100%;
+}
+
 html, body {
   margin: 0px;
   height: 100vh;
