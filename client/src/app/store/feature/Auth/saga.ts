@@ -12,16 +12,11 @@ function * executeRegister (action: ExecuteRegisterAction) {
   if (!response.status) {
     console.log('status', response.status);
   } else {
-    const request = {
-      username: response.user.username,
-      email: response.user.email,
-      token: response.user.token
-    }
     storageService.setItem(StorageKeysEnum.Authorization, JSON.stringify({
-      user: request
+      user: response.user
     }));
     yield put(saveUserInformationAction({
-      user: request
+      user: response.user
     }))
   }
 }

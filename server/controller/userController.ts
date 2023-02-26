@@ -20,13 +20,14 @@ const register = async (req: Request, resp: Response, next: NextFunction) => {
       algorithm: "HS256",
       expiresIn: '2h'
     });
-    const user = new User({
+    const newUser = new User({
       username,
       email,
       token,
       password: hashedPassword
     });
-    await user.save();
+    await newUser.save();
+    const user = await User.findOne({ username })
     return resp.json({ status: true, user });
   } catch (error) {
     next(error)

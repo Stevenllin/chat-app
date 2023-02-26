@@ -31,13 +31,14 @@ const register = (req, resp, next) => __awaiter(void 0, void 0, void 0, function
             algorithm: "HS256",
             expiresIn: '2h'
         });
-        const user = new userModel_1.default({
+        const newUser = new userModel_1.default({
             username,
             email,
             token,
             password: hashedPassword
         });
-        yield user.save();
+        yield newUser.save();
+        const user = yield userModel_1.default.findOne({ username });
         return resp.json({ status: true, user });
     }
     catch (error) {
