@@ -17,14 +17,11 @@ const AuthCard = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${colorWhite};
+  background-color: #ffffff0a;
   min-height: 600px;
   width: 575px;
   gap: 1.5rem;
   border-radius: 1.5rem;
-  background-color: ${colorBackground};
-  background-image: linear-gradient(to right bottom, #0395a4, #d5e9ea);
-  box-shadow: -6px -6px 20px #e7edee, 6px 6px 20px #e7edee;
 
   h1 {
     color: ${colorWhite};
