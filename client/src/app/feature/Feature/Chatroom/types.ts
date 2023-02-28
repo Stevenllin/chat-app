@@ -1,4 +1,4 @@
-export interface GetAllUsersResp {
+export interface Contact {
   _id: string;
   username: string;
   email: string;

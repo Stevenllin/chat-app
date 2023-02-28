@@ -12,7 +12,7 @@ export default {
       .then((response) => response.data);
   },
   getAllUsers: async (args: GetAllUsersReq, id: string) => {
-    return axios.get<GetAllUsersResp>(`/api/auth/allusers/${id}`, args)
+    return axios.get<GetAllUsersResp[]>(`/api/auth/allusers/${id}`, args)
       .then((response) => response.data)
   },
   postAuthRegister: async (args: PostAuthRegisterReq) => {

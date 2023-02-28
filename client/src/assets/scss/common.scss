@@ -22,6 +22,7 @@ html, body {
   overflow: hidden;
   background-color: #d5e9ea;
 }
+
 button {
   all: unset;
 }
@@ -55,5 +56,9 @@ button {
   background-color: $color-main;
   border-radius: 0.5rem;
   box-shadow: 1px 1px 1px $color-main;
+}
+
+.font-1 {
+  font-size: 20px;
 }
 /** Common */

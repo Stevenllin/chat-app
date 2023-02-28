@@ -1,4 +1,6 @@
 import React from 'react';
+import { ROUTES } from 'app/core/router/path';
+import { useHistory } from "react-router";
 import { useDispatch } from 'react-redux';
 import { executeRegisterAction } from 'app/store/feature/Auth/action';
 import { useForm } from 'react-hook-form';
@@ -10,6 +12,7 @@ import { FormValues } from './types';
 
 const Register: React.FC = () => {
   const reduxDispatch = useDispatch();
+  const routerHistory = useHistory();
 
   const reactHookForm = useForm<FormValues>({
     defaultValues: {
@@ -23,6 +26,7 @@ const Register: React.FC = () => {
   });
   const handleFormSubmit = reactHookForm.handleSubmit(async (formValues) => {
     reduxDispatch(executeRegisterAction(formValues));
+    // routerHistory.push(ROUTES.FEATURES_AVATAR);
   });
   return (
     <AuthContainer>

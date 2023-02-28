@@ -6,18 +6,21 @@ import { PostAuthRegisterResp } from 'app/api/model/post/postAuthRegister';
 import { PostAuthLoginResp } from 'app/api/model/post/postAuthLogin';
 import { LOGIN__USERS, REGISTER__USERS, ExecuteRegisterAction, ExecuteLoginAction } from './types';
 import { saveUserInformationAction } from './action';
+import { sagaBoundary } from '../../service';
 
 function * executeRegister (action: ExecuteRegisterAction) {
   const response: PostAuthRegisterResp = yield call(apiService.postAuthRegister, action.payload.args)
   if (!response.status) {
     console.log('status', response.status);
   } else {
-    storageService.setItem(StorageKeysEnum.Authorization, JSON.stringify({
-      user: response.user
-    }));
     yield put(saveUserInformationAction({
       user: response.user
     }))
+    console.log('storageService', storageService)
+    storageService.setItem(StorageKeysEnum.Authorization, JSON.stringify({
+      user: response.user
+    }));
+    console.log('3')
   }
 }
 
@@ -27,7 +30,7 @@ function * executeLogin (action: ExecuteLoginAction) {
     console.log('status', response.status);
   } else {
     const request = {
-      id: response.user._id,
+      _id: response.user._id,
       username: response.user.username,
       email: response.user.email,
       token: response.user.token,
@@ -45,7 +48,7 @@ function * executeLogin (action: ExecuteLoginAction) {
 
 export default function * watchAuthSaga () {
   yield all([
-    takeEvery(REGISTER__USERS, executeRegister),
-    takeEvery(LOGIN__USERS, executeLogin)
+    takeEvery(REGISTER__USERS, sagaBoundary(executeRegister)),
+    takeEvery(LOGIN__USERS, sagaBoundary(executeLogin))
   ]);
 }

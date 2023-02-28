@@ -5,7 +5,7 @@ import { AuthState, AuthActions, SAVE__USERS, LOGIN__USERS } from './types';
 
 const initialState: AuthState = JSON.parse(storageService.getItem(StorageKeysEnum.Authorization)) ?? {
   user: {
-    id: null,
+    _id: null,
     username: null,
     email: null,
     token: null,

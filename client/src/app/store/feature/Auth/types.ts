@@ -3,7 +3,7 @@ import { PostAuthLoginReq } from 'app/api/model/post/postAuthLogin';
 
 export interface AuthState {
   user: {
-    id?: string;
+    _id?: string;
     username: string;
     email: string;
     token: string;

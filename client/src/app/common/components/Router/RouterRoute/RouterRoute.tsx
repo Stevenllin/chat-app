@@ -4,6 +4,7 @@ import { RouterRouteProps } from './types';
 
 const RouterRoute: React.FC<RouterRouteProps> = ({ activate = [], ...restProps }) => {
   const isActivated = !activate.map((guardFunc) => guardFunc()).includes(false);
+  console.log('RouterRoute')
   return isActivated ? <Route {...restProps} /> : null;
 };
 

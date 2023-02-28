@@ -40,8 +40,15 @@ const Avatar: React.FC = () => {
     if (indexOfselectAvatar) {
       const response = await apiService.postAuthSetAvatar({
         image: avatars[indexOfselectAvatar]
-      }, user.id);
+      }, user._id);
       if (response) {
+        storageService.setItem(StorageKeysEnum.Authorization, JSON.stringify({
+          user: {
+            ...user,
+            isAvatarImageSet: true,
+            avatarImage: avatars[indexOfselectAvatar]
+          }
+        }));
         routerHistory.push(ROUTES.FEATURES_CHATROOM);
       }
     }
