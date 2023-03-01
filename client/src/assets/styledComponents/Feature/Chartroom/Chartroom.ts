@@ -61,6 +61,7 @@ const MessageContainer = styled.div`
 
   &::-webkit-scrollbar {
     width: 0.2rem;
+
     &-thumb {
       background-color: #ffffff39;
       width: 0.1rem;
@@ -94,31 +95,70 @@ const EmojiInputContainer = styled.div`
   .emoji {
     position: relative;
 
+    aside.emoji-picker-react {
+      border-radius: 0.5rem;
+      box-shadow: 0px 0px 0px white !important;
+    }
+
     .emoji-picker-react {
       position: absolute;
       left: 50px;
       top: -350px;
-      background-color: #080420;
-      box-shadow: 0 5px 10px #9a86f3;
-      border-color: #9a86f3;
+      background-color: #ffffff0a;
+      
+      .emoji-scroll-wrapper {
+        overflow-x: hidden !important;
+      }
+
       .emoji-scroll-wrapper::-webkit-scrollbar {
-        background-color: #080420;
         width: 5px;
         &-thumb {
-          background-color: #9a86f3;
+          border-radius: 0.5rem;
+          background-color: white;
         }
       }
+
+      .active-category-indicator {
+        background-color: white;
+      }
+      
       .emoji-categories {
         button {
-          filter: contrast(0);
+          padding: 10px;
+          filter: invert(87%) sepia(89%) saturate(3%) hue-rotate(187deg) brightness(111%) contrast(97%);
         }
       }
+
+      .emoji-categories .active {
+        filter: invert(20%) sepia(61%) saturate(5093%) hue-rotate(173deg) brightness(100%) contrast(98%);
+      }
+
       .emoji-search {
         background-color: transparent;
-        border-color: #9a86f3;
+        border-color: white;
+        margin-left: 15px;
+        margin-bottom: 15px;
+        color: white;
       }
+
+      .emoji-group {
+        width: 278.5px;
+      }
+      
       .emoji-group:before {
-        background-color: #080420;
+        padding: 0 5px;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        border-radius: 0.5rem !important;
+        background-color: #03818e;
+      }
+
+      img.emoji-img {
+        margin: 5px;
+      }
+
+      button[aria-label]:before {
+        color: white !important;
       }
     }
   }
