@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const colorWhite = '#FFFFFF';
-const colorBackground = '#362e4c';
 
 const AuthContainer = styled.div`
   height: 100vh;

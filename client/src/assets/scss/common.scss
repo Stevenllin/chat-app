@@ -6,7 +6,8 @@
 //#0395a4
 //#c3e1db
 //#87c4b7
-$color-main: #0395a4;
+$color-minor: #ffffff0a;
+$color-main: #03818e;
 $color-red: #eb4f72;
 $color-white: #FFFFFF;
 $font-md: 20px;
@@ -29,6 +30,10 @@ button {
 /** HTML tag */
 
 /** Common */
+.w-95 {
+  width: 95%;
+}
+
 .w-80 {
   width: 80%;
 }
@@ -56,6 +61,15 @@ button {
   background-color: $color-main;
   border-radius: 0.5rem;
   box-shadow: 1px 1px 1px $color-main;
+}
+
+.button-minor {
+  padding: 1rem 2rem;
+  font-size: $font-md;
+  color: $color-white;
+  background-color: $color-minor;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 1px $color-minor;
 }
 
 .font-1 {
