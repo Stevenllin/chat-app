@@ -31,7 +31,7 @@ export default {
   },
   postAllMessage: async (args: PostGetAllMessagesReq) => {
     return axios.post<PostGetAllMessagesResp>('/api/messages/getmsg', args)
-      .then((response) => response.data.messages)
+      .then((response) => response.data.projectedMessages)
   },
   postAddMessages: async (args: PostAddMessagesReq) => {
     return axios.post<PostAddMessagesResp>('/api/messages/addmsg', args)

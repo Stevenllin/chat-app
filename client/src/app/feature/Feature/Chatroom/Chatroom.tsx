@@ -39,7 +39,7 @@ const Chatroom: React.FC = () => {
         }
       }
     })();
-  }, [currentUser._id]);
+  }, [currentUser]);
 
   useEffect(() => {
     (async () => {
@@ -48,10 +48,11 @@ const Chatroom: React.FC = () => {
           from: currentUser._id ?? '',
           to: selectedContact._id
         })
+        console.log('response', response);
         setMessages(response);
       }
     })()
-  }, [selectedContact])
+  }, [currentUser, selectedContact])
 
   const handleSelectContact = (item: GetAllUsersResp) => {
     setSelectedContact(item);
@@ -140,7 +141,15 @@ const Chatroom: React.FC = () => {
               </div>
               <MessageContainer>
                 {
-                  
+                  messages.map((message, index) => {
+                    return (
+                      <div key={index} className={`message ${message.fromSelf ? 'sended' : 'recieved'}`}>
+                        <div className="content">
+                          <p>{message.message}</p>
+                        </div>
+                      </div>
+                    )
+                  })
                 }
               </MessageContainer>
               <EmojiInputContainer>

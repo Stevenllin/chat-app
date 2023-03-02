@@ -1,5 +1,5 @@
 export interface PostGetAllMessagesResp {
-  messages: Messages[];
+  projectedMessages: Messages[];
 }
 
 export interface Messages {

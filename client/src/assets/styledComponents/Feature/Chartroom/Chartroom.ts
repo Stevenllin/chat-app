@@ -33,6 +33,22 @@ const ChatContainer = styled.div`
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
   overflow: hidden;
+
+  // img {
+  //   border-radius: 5rem;
+  //   animation-name: animated-border;
+  //   animation-duration: 1.5s;
+  //   animation-iteration-count: infinite;
+  // }
+
+  // @keyframes animated-border {
+  //   0% {
+  //     box-shadow: 0px 0px 0px 0px #4e0eff;
+  //   }
+  //   100% {
+  //     box-shadow: 0px 0px 0px 15px rgba(0, 0, 0, 0.2);
+  //   }
+  // }
 `
 
 const LogoutIcon = styled.div`
@@ -66,6 +82,31 @@ const MessageContainer = styled.div`
       background-color: #ffffff39;
       width: 0.1rem;
       border-radius: 1rem;
+    }
+  }
+
+  .message {
+    display: flex;
+    align-items: center;
+    .content {
+      max-width: 40%;
+      overflow-wrap: break-word;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border-radius: 1rem;
+      color: #d1d1d1;
+    }
+  }
+  .sended {
+    justify-content: flex-end;
+    .content {
+      background-color: #145d6c;
+    }
+  }
+  .recieved {
+    justify-content: flex-start;
+    .content {
+      background-color: #143d6c;
     }
   }
 `

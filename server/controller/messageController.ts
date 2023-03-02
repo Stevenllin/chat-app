@@ -18,9 +18,7 @@ const getMessages = async (req: Request, resp: Response, next: NextFunction) => 
       }
     })
     return resp.json({
-      messages: {
-        projectedMessages
-      }
+      projectedMessages
     })
   } catch (ex) {
     next(ex)

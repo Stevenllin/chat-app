@@ -29,9 +29,7 @@ const getMessages = (req, resp, next) => __awaiter(void 0, void 0, void 0, funct
             };
         });
         return resp.json({
-            messages: {
-                projectedMessages
-            }
+            projectedMessages
         });
     }
     catch (ex) {
