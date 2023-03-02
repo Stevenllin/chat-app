@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import userRouter from './routes/userRoutes';
+import messageRouter from './routes/messageRoutes';
 
 const app: Express = express();
 require('dotenv').config();
@@ -9,7 +10,8 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth', userRouter)
+app.use('/api/auth', userRouter);
+app.use('/api/messages', messageRouter);
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env?.MONGO_URL ?? '').then(() => {

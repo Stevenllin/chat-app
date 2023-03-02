@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import apiService from 'app/api/service/apiService';
 import storageService from 'app/core/service/storageService';
-import Picker from "emoji-picker-react";
+import Picker, { IEmojiData } from "emoji-picker-react";
 import { useSelector } from "react-redux";
+import { useForm } from 'react-hook-form';
 import { RootState } from 'app/store/types';
 import { useHistory } from 'react-router';
 import { ROUTES } from 'app/core/router/path';
@@ -12,13 +13,22 @@ import { IoMdSend } from "react-icons/io";
 import { FiSmile } from "react-icons/fi";
 import { ContactContainer, ContactContent, ChatContainer, LogoutIcon, MessageContainer, EmojiInputContainer } from 'assets/styledComponents/Feature/Chartroom';
 import { GetAllUsersResp } from 'app/api/model/get/getAllUsers';
+import { Messages } from 'app/api/model/post/postGetAllMessages';
+import { FormValues } from './types';
 
 const Chatroom: React.FC = () => {
   const routerHistory = useHistory();
   const [contacts, setContacts] = useState<GetAllUsersResp[]>([]);
   const [selectedContact, setSelectedContact] = useState<GetAllUsersResp|null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [messages, setMessages] = useState<Messages[]>([]);
   const currentUser = useSelector((state: RootState) => state.features.auth.user);
+
+  const reactHookForm = useForm<FormValues>({
+    defaultValues: {
+      msg: ''
+    }
+  });
 
   useEffect(() => {
     (async () => {
@@ -29,7 +39,19 @@ const Chatroom: React.FC = () => {
         }
       }
     })();
-  }, []);
+  }, [currentUser._id]);
+
+  useEffect(() => {
+    (async () => {
+      if (selectedContact) {
+        const response = await apiService.postAllMessage({
+          from: currentUser._id ?? '',
+          to: selectedContact._id
+        })
+        setMessages(response);
+      }
+    })()
+  }, [selectedContact])
 
   const handleSelectContact = (item: GetAllUsersResp) => {
     setSelectedContact(item);
@@ -44,9 +66,18 @@ const Chatroom: React.FC = () => {
     setShowEmojiPicker(!showEmojiPicker);
   }
 
-  const handleEmojiClick = () => {
-    console.log('123');
+  const handleEmojiClick = (event: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {
+    reactHookForm.setValue('msg', reactHookForm.getValues('msg') + emojiObject.emoji)
   }
+
+  const handleFormSubmit = reactHookForm.handleSubmit(async (formValues) => {
+    const response = await apiService.postAddMessages({
+      from: currentUser?._id ?? '',
+      to: selectedContact?._id ?? '',
+      message: formValues.msg
+    })
+    console.log('response', response)
+  });
 
   return (
     <div className="row p-5 h-100">
@@ -107,17 +138,28 @@ const Chatroom: React.FC = () => {
                   <BiPowerOff />
                 </LogoutIcon>
               </div>
-              <MessageContainer>123</MessageContainer>
+              <MessageContainer>
+                {
+                  
+                }
+              </MessageContainer>
               <EmojiInputContainer>
                 <div className="d-flex justify-content-center align-items-center icons emoji">
                   <FiSmile onClick={handleEmojiPickerhideShow} />
                   {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />}
                 </div>
-                <form className="d-flex">
-                  <input className="w-95 mx-4" />
-                  <div className="d-flex justify-content-center align-items-center icons">
+                <form className="d-flex" onSubmit={handleFormSubmit}>
+                  <input
+                    className="w-95 mx-4"
+                    {...reactHookForm.register('msg')}
+                    value={reactHookForm.watch('msg')}
+                  />
+                  <button
+                    type="submit"
+                    className="d-flex justify-content-center align-items-center icons"
+                  >
                     <IoMdSend />
-                  </div>
+                  </button>
                 </form>
               </EmojiInputContainer>
             </ChatContainer>
