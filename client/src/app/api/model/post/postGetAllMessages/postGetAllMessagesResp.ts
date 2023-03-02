@@ -3,6 +3,6 @@ export interface PostGetAllMessagesResp {
 }
 
 export interface Messages {
-  fromSelf: string;
+  fromSelf: boolean;
   message: string;
 }

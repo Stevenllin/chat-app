@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import apiService from 'app/api/service/apiService';
 import storageService from 'app/core/service/storageService';
 import Picker, { IEmojiData } from "emoji-picker-react";
+import { io, Socket } from 'socket.io-client';
 import { useSelector } from "react-redux";
 import { useForm } from 'react-hook-form';
 import { RootState } from 'app/store/types';
@@ -18,10 +19,13 @@ import { FormValues } from './types';
 
 const Chatroom: React.FC = () => {
   const routerHistory = useHistory();
+  const socket = useRef<Socket>();
+  const scrollRef = useRef<HTMLElement>();
   const [contacts, setContacts] = useState<GetAllUsersResp[]>([]);
   const [selectedContact, setSelectedContact] = useState<GetAllUsersResp|null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [messages, setMessages] = useState<Messages[]>([]);
+  const [arrivalMessage, setArrivalMessage] = useState<Messages|null>(null);
   const currentUser = useSelector((state: RootState) => state.features.auth.user);
 
   const reactHookForm = useForm<FormValues>({
@@ -37,6 +41,13 @@ const Chatroom: React.FC = () => {
         if (response) {
           setContacts(response);
         }
+        socket.current = io('http://localhost:5000');
+        socket.current.emit("add-user", currentUser._id);
+      }
+      if (socket.current) {
+        socket.current.on("msg-recieve", (msg) => {
+          setArrivalMessage({ fromSelf: false, message: msg });
+        });
       }
     })();
   }, [currentUser]);
@@ -48,11 +59,18 @@ const Chatroom: React.FC = () => {
           from: currentUser._id ?? '',
           to: selectedContact._id
         })
-        console.log('response', response);
         setMessages(response);
       }
     })()
   }, [currentUser, selectedContact])
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
 
   const handleSelectContact = (item: GetAllUsersResp) => {
     setSelectedContact(item);
@@ -72,12 +90,20 @@ const Chatroom: React.FC = () => {
   }
 
   const handleFormSubmit = reactHookForm.handleSubmit(async (formValues) => {
-    const response = await apiService.postAddMessages({
+    await apiService.postAddMessages({
       from: currentUser?._id ?? '',
       to: selectedContact?._id ?? '',
       message: formValues.msg
     })
-    console.log('response', response)
+    reactHookForm.setValue('msg', '');
+    socket.current?.emit('send-msg', {
+      to: selectedContact?._id ?? '',
+      from : currentUser?._id ?? '',
+      message: formValues.msg
+    })
+    const msgs = [...messages];
+    msgs.push({ fromSelf: true, message: formValues.msg })
+    setMessages(msgs);
   });
 
   return (
