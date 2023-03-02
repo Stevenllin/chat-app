@@ -20,7 +20,7 @@ import { FormValues } from './types';
 const Chatroom: React.FC = () => {
   const routerHistory = useHistory();
   const socket = useRef<Socket>();
-  const scrollRef = useRef<HTMLElement>();
+  const scrollRef = React.useRef<HTMLDivElement>(null);
   const [contacts, setContacts] = useState<GetAllUsersResp[]>([]);
   const [selectedContact, setSelectedContact] = useState<GetAllUsersResp|null>(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -66,6 +66,7 @@ const Chatroom: React.FC = () => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    console.log('123123');
   }, [messages]);
 
   useEffect(() => {
@@ -169,7 +170,7 @@ const Chatroom: React.FC = () => {
                 {
                   messages.map((message, index) => {
                     return (
-                      <div key={index} className={`message ${message.fromSelf ? 'sended' : 'recieved'}`}>
+                      <div key={index} ref={scrollRef} className={`message ${message.fromSelf ? 'sended' : 'recieved'}`}>
                         <div className="content">
                           <p>{message.message}</p>
                         </div>
