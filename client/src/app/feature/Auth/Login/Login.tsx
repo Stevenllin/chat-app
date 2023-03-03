@@ -1,4 +1,6 @@
 import React from 'react';
+import { ROUTES } from 'app/core/router/path';
+import { useHistory } from "react-router";
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { AuthContainer, AuthCard } from 'assets/styledComponents/Auth';
@@ -10,6 +12,7 @@ import { FormValues } from './types';
 
 const Login: React.FC = () => {
   const reduxDispatch = useDispatch();
+  const routerHistory = useHistory();
   const reactHookForm = useForm<FormValues>({
     defaultValues: {
       username: '',
@@ -18,6 +21,11 @@ const Login: React.FC = () => {
     // @ts-ignore
     resolver: yupResolver(PageValidationSchema)
   })
+
+  const handleClickRegister = () => {
+    routerHistory.push(ROUTES.AUTH_REGISTER);
+  }
+
   const handleFormSubmit = reactHookForm.handleSubmit((formValues) => {
     reduxDispatch(executeLoginAction(formValues));
   });
@@ -47,7 +55,7 @@ const Login: React.FC = () => {
             />
           </div>
           <div className="my-4">
-            <p className="color-main">Don't have an account? <span className="text-uppercase fw-bold">Register</span></p>
+            <p className="color-main">Don't have an account? <span className="text-uppercase fw-bold pointer" onClick={handleClickRegister}>Register</span></p>
           </div>
           <div className="d-flex justify-content-center my-4">
             <button className="button-main" type="submit">Confirm</button>

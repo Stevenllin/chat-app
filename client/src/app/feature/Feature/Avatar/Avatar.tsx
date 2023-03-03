@@ -2,18 +2,23 @@ import React, { useState, useEffect } from 'react';
 import storageService from 'app/core/service/storageService';
 import apiService from 'app/api/service/apiService';
 import { useHistory } from 'react-router';
+import { useSelector } from "react-redux";
+import { RootState } from 'app/store/types';
 import { ROUTES } from 'app/core/router/path';
 import { StorageKeysEnum } from 'app/core/enum/storage';
 import { Buffer } from "buffer";
 import { SlRefresh } from "react-icons/sl";
 import multiavatar from '@multiavatar/multiavatar';
 import { AvatarContainer } from 'assets/styledComponents/Feature/Avatar';
+import { executeUpdateAvatarAction } from 'app/store/feature/Auth/action';
 
 const Avatar: React.FC = () => {
   const routerHistory = useHistory();
   const user = JSON.parse(storageService.getItem(StorageKeysEnum.Authorization)).user;
+  const currentUser = useSelector((state: RootState) => state.features.auth.user);
   const [avatars, setAvatars] = useState<string[]>([]);
   const [indexOfselectAvatar, setIndexOfSelectAvatar] = useState<number|null>(null);
+  console.log('currentUser', currentUser);
 
   const fetchQueryAvatars = () => {
     const imageArray: string[] = [];
@@ -33,7 +38,11 @@ const Avatar: React.FC = () => {
   }
 
   useEffect(() => {
-    fetchQueryAvatars();
+    if (currentUser.avatarImage) {
+      routerHistory.replace(ROUTES.FEATURES_CHATROOM)
+    } else {
+      fetchQueryAvatars();
+    }
   }, []);
 
   const handleConfirmBtn = async () => {
@@ -49,7 +58,14 @@ const Avatar: React.FC = () => {
             avatarImage: avatars[indexOfselectAvatar]
           }
         }));
-        routerHistory.push(ROUTES.FEATURES_CHATROOM);
+        executeUpdateAvatarAction({
+          user: {
+            ...user,
+            isAvatarImageSet: true,
+            avatarImage: avatars[indexOfselectAvatar]
+          }
+        })
+        window.location.reload()
       }
     }
   }

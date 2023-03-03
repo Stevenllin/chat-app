@@ -16,11 +16,9 @@ function * executeRegister (action: ExecuteRegisterAction) {
     yield put(saveUserInformationAction({
       user: response.user
     }))
-    console.log('storageService', storageService)
     storageService.setItem(StorageKeysEnum.Authorization, JSON.stringify({
       user: response.user
     }));
-    console.log('3')
   }
 }
 

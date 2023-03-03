@@ -3,7 +3,7 @@
 */
 export enum ROUTES {
   /** Feature */
-  FEATURES = '',
+  FEATURES = '/',
 
   /** Chatroom */
   FEATURES_CHATROOM = '/chatroom',

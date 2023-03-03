@@ -9,16 +9,14 @@ const FeaturesRoutes: React.FC = () => {
     <React.Suspense fallback={<LazySpinner/>}>
       <Switch>
         <RouterRoute
-          exact
           path={ROUTES.FEATURES_AVATAR}
           component={React.lazy(() => import('./Avatar'))}
         />
         <RouterRoute
-          exact
           path={ROUTES.FEATURES_CHATROOM}
           component={React.lazy(() => import('./Chatroom'))}
         />
-        {/* <Redirect to={ROUTES.FEATURES_CHATROOM} /> */}
+        <Redirect to={ROUTES.FEATURES_CHATROOM} />
       </Switch>
     </React.Suspense>
   )

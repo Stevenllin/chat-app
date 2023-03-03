@@ -7,7 +7,6 @@ const useUnauthorizationGuard = () => {
   const routerHistory = useHistory();
   const authorizationState = useSelector((state: RootState) => state.features.auth.user.token);
   const isAccessible = !authorizationState;
-  console.log('useUnauthorizationGuard')
   if (!isAccessible) routerHistory.replace(ROUTES.FEATURES)
   return isAccessible
 }

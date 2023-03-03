@@ -27,6 +27,7 @@ const Chatroom: React.FC = () => {
   const [messages, setMessages] = useState<Messages[]>([]);
   const [arrivalMessage, setArrivalMessage] = useState<Messages|null>(null);
   const currentUser = useSelector((state: RootState) => state.features.auth.user);
+  console.log('currentUser', currentUser);
 
   const reactHookForm = useForm<FormValues>({
     defaultValues: {
@@ -36,18 +37,22 @@ const Chatroom: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      if (currentUser._id) {
-        const response = await apiService.getAllUsers({}, currentUser._id)
-        if (response) {
-          setContacts(response);
+      if (!currentUser.avatarImage) {
+        routerHistory.replace(ROUTES.FEATURES_AVATAR);
+      } else {
+        if (currentUser._id) {
+          const response = await apiService.getAllUsers({}, currentUser._id)
+          if (response) {
+            setContacts(response);
+          }
+          socket.current = io('http://localhost:5000');
+          socket.current.emit("add-user", currentUser._id);
         }
-        socket.current = io('http://localhost:5000');
-        socket.current.emit("add-user", currentUser._id);
-      }
-      if (socket.current) {
-        socket.current.on("msg-recieve", (msg) => {
-          setArrivalMessage({ fromSelf: false, message: msg });
-        });
+        if (socket.current) {
+          socket.current.on("msg-recieve", (msg) => {
+            setArrivalMessage({ fromSelf: false, message: msg });
+          });
+        }
       }
     })();
   }, [currentUser]);
@@ -66,7 +71,6 @@ const Chatroom: React.FC = () => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-    console.log('123123');
   }, [messages]);
 
   useEffect(() => {

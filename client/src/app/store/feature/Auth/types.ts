@@ -16,6 +16,7 @@ export interface AuthState {
 export const REGISTER__USERS = 'REGISTER__USERS';
 export const LOGIN__USERS = 'LOGIN__USERS';
 export const SAVE__USERS = 'SAVE__USERS';
+export const UPDATE__USERS = 'UPDATE__USERS';
 
 export interface ExecuteRegisterAction {
   type: typeof REGISTER__USERS;
@@ -38,4 +39,11 @@ export interface ExecuteSaveAction {
   }
 }
 
-export type AuthActions = ExecuteRegisterAction | ExecuteLoginAction | ExecuteSaveAction;
+export interface ExecuteUpdateAvatarAction {
+  type: typeof UPDATE__USERS;
+  payload: {
+    args: AuthState
+  }
+}
+
+export type AuthActions = ExecuteRegisterAction | ExecuteLoginAction | ExecuteSaveAction | ExecuteUpdateAvatarAction;
